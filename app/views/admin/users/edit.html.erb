@@ -1,0 +1,12 @@
+<div class="page-header">
+  <%= link_to admin_users_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <h1>Editing User</h1>
+  <hr class="colorgraph">
+</div>
+
+<%= form_for(@user, {url: admin_user_path(@user), html: { class: "form-horizontal", role: "form" }}) do |field| %>
+  <%= render partial: 'form', locals: {f: field} %>
+<% end %>

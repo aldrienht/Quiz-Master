@@ -1,0 +1,11 @@
+<% if data.errors.any? %>
+  <div class="alert alert-danger alert-dismissable" role="alert">
+    <a href="javascript:void(0)" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <h3 class="prohibited"><%= pluralize(data.errors.count, "error") %> prohibited this user from being saved:</h3>
+    <ul class="error_list">
+      <% data.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

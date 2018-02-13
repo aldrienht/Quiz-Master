@@ -1,0 +1,18 @@
+<nav class="sidebar">
+  <ul class="nav">
+    <li class="nav-item" id="dashboard">
+      <%= link_to "Dashboard", dashboard_path, class: 'nav-link pad-l25' %>
+    </li>
+
+    <% if current_user.is_admin? %>
+      <li class="nav-item" id="users">
+        <%= link_to "User Management", admin_users_path, class: 'nav-link pad-l25' %>
+      </li>
+    <% end %>
+    <% if current_user.is_teacher? %>
+      <li class="nav-item" id="questions">
+        <%= link_to "Questions Management", teacher_questions_path, class: 'nav-link pad-l25' %>
+      </li>
+    <% end %>
+  </ul>
+</nav>
