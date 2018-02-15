@@ -1,6 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.json { head :forbidden, content_type: 'text/html' }
+      format.html { redirect_to root_url, alert: 'You are NOT AUTHORIZED to access that page.' }
+      format.js   { head :forbidden, content_type: 'text/html' }
+    end
+  end
 
   def render_404
     respond_to do |format|
@@ -9,7 +16,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-private
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
@@ -21,19 +27,16 @@ private
     end
   end
 
-  def allow_only_teachers
-    if !current_user.is_teacher?
-      flash[:error] = "You're not allowed to view that page."
-      redirect_to root_url
-    end
-  end
-
-  def allow_admins_only
-    if !current_user.is_admin?
-      flash[:error] = "You're not allowed to view that page."
-      redirect_to root_url
-    end
-  end
-
   helper_method :current_user
+  private
+
+  def current_ability
+    # I am sure there is a slicker way to capture the controller namespace
+    controller_name_segments = params[:controller].split('/')
+    controller_name_segments.pop
+    controller_namespace = controller_name_segments.join('/').camelize
+    # Ability.new(current_user, controller_namespace)
+    @current_ability ||= Ability.new(current_user, controller_namespace)
+
+  end
 end

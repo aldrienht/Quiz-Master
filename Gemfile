@@ -42,11 +42,14 @@ gem 'record_tag_helper', '~> 1.0'
 # The humanize gem converts digits into words.
 gem 'humanize'
 
-gem 'ckeditor'
+gem 'ckeditor', github: 'galetahub/ckeditor'
 gem 'paperclip'
 
-# DEPRECATION: The cocaine gem is deprecated. Please upgrade to terrapin. See https://github.com/thoughtbot/terrapin/ for further instructions. 
-gem 'terrapin'
+# DEPRECATION: The cocaine gem is deprecated. Please upgrade to terrapin. See https://github.com/thoughtbot/terrapin/ for further instructions.
+# gem 'terrapin'
+
+# CanCanCan is an authorization library for Ruby
+gem 'cancancan', '~> 2.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -54,6 +57,17 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'rspec-rails', '~> 3.7'
+end
+
+group :test do
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'shoulda', '~> 3.5'
+  gem 'shoulda-matchers'
+  gem "factory_bot", "~> 4.0"
+  gem 'rails-controller-testing'
+  gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 end
 
 group :development do

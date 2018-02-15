@@ -2,3 +2,35 @@
   <h1>Welcome to Quiz Master</h1>
   <hr class="colorgraph">
 </div>
+
+<div class="bs-docs-section">
+  <div class="bs-callout bs-callout-info" id="callout-glyphicons-location">
+    <h4>Student Learning</h4>
+    <p>
+      Student Learning is here to help you manage your learning and develop your study skills.
+      Whatever your level of study, you'll find resources here to meet your learning needs.
+      These anonymous assignments typically can be completed quickly, and focus on three areas:
+    </p>
+    <ul>
+      <li>students’ academic skills and intellectual development</li>
+      <li>students’ assessments of their own learning skills</li>
+      <li>students' reactions to various teaching methods, materials, and assignments</li>
+    </ul>
+    <p>This system helps student to learn as easy as possible.</p>
+  </div>
+
+  <% if !current_user.is_student? %>
+  <div class="bs-callout bs-callout-danger" id="callout-glyphicons-location">
+    <h4>Teacher's Abilities</h4>
+    <p>
+      Teachers are able to create questionnaire for every students.
+      Not only with texts but more graphical and designed. For the purpose of:
+    </p>
+    <ul>
+      <li>students’ fast learning process</li>
+      <li>encoureage students using visual texts</li>
+      <li>...</li>
+    </ul>
+  </div>
+  <% end %>
+</div>

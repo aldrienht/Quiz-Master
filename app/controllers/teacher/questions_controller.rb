@@ -1,32 +1,34 @@
 class Teacher::QuestionsController < ApplicationController
-  before_action :require_login, :allow_only_teachers
+  before_action :require_login
+  load_and_authorize_resource
   before_action :set_question, only: [:show, :edit, :update, :destroy]
-  layout 'admin_teacher'
+  layout 'dashboard'
 
-  # GET /questions
-  # GET /questions.json
+  # GET /teacher/questions
+  # GET /teacher/questions.json
   def index
-    @questions = Question.all
+    @questions = current_user.questions
   end
 
-  # GET /questions/1
-  # GET /questions/1.json
+  # GET /teacher/questions/1
+  # GET /teacher/questions/1.json
   def show
   end
 
-  # GET /questions/new
+  # GET /teacher/questions/new
   def new
     @question = Question.new
   end
 
-  # GET /questions/1/edit
+  # GET /teacher/questions/1/edit
   def edit
   end
 
-  # POST /questions
-  # POST /questions.json
+  # POST /teacher/questions
+  # POST /teacher/questions.json
   def create
     @question = Question.new(question_params)
+    @question.teacher_id = session[:user_id]
 
     respond_to do |format|
       if @question.save
@@ -39,8 +41,8 @@ class Teacher::QuestionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /questions/1
-  # PATCH/PUT /questions/1.json
+  # PATCH/PUT /teacher/questions/1
+  # PATCH/PUT /teacher/questions/1.json
   def update
     respond_to do |format|
       if @question.update(question_params)
@@ -53,8 +55,8 @@ class Teacher::QuestionsController < ApplicationController
     end
   end
 
-  # DELETE /questions/1
-  # DELETE /questions/1.json
+  # DELETE /teacher/questions/1
+  # DELETE /teacher/questions/1.json
   def destroy
     @question.destroy
     respond_to do |format|

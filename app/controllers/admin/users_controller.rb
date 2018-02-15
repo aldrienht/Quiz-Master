@@ -1,7 +1,8 @@
 class Admin::UsersController < ApplicationController
-  before_action :require_login, :allow_admins_only
+  before_action :require_login #, :allow_admins_only
+  load_and_authorize_resource
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  layout 'admin_teacher'
+  layout 'dashboard'
 
   # GET /admin/users
   # GET /admin/users.json
@@ -58,7 +59,7 @@ class Admin::UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to admin_users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to admin_users_url, notice: 'User was successfully deleted.' }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,13 @@
+<div class="page-header">
+  <h1 class="text-capitalize">Examination Result</h1>
+  <h4 class="text-capitalize">Student: <%= @student.fullname %></h4>
+  <hr class="colorgraph">
+<% if @exam_results.count <= 0 %>
+  <h1 class="red">Note: Student hasn't taken the Exam yet!</h1>
+</div>
+  <% else %>
+<h2 class="score">Student Score: <%= @exam_results.correct.count %>/<%= @exam_results.count %></h2>
+</div>
+
+<%= render partial: '/student/examinations/result' %>
+<% end %>

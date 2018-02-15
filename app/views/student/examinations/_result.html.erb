@@ -1,0 +1,29 @@
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Questions :</th>
+        <th><%= params[:controller].split('/')[0] == 'student' ? 'Your' : 'His/Her' %> Answer :</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @exam_results.each_with_index do |result, index| %>
+      <tr>
+        <td><%= index += 1 %></td>
+        <td style="width: 70%;"><%= raw(result.question.try(:content)) %></td>
+        <td style="width: 20%;"><%= result.student_answer %></td>
+        <td style="width: 10%;">
+          <% if result.is_correct %>
+            <span class="glyphicon glyphicon-ok green"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-remove red"></span>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+    </table>
+</div>

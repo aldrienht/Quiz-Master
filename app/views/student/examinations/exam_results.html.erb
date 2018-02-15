@@ -1,0 +1,8 @@
+<div class="page-header">
+  <h1 class="text-capitalize">Examination Result</h1>
+  <h4 class="text-capitalize">Teacher: <%= @teacher.fullname %></h4>
+  <hr class="colorgraph">
+  <h2 class="score">Your Score: <%= @exam_results.correct.count %>/<%= @exam_results.count %></h2>
+</div>
+
+<%= render partial: 'result' %>

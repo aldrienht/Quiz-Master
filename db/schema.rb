@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180213214345) do
+ActiveRecord::Schema.define(version: 20180214052343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,12 +28,24 @@ ActiveRecord::Schema.define(version: 20180213214345) do
     t.index ["type"], name: "index_ckeditor_assets_on_type"
   end
 
+  create_table "exam_results", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "teacher_id"
+    t.integer "question_id"
+    t.string "question_answer"
+    t.string "student_answer"
+    t.boolean "is_correct"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "questions", force: :cascade do |t|
     t.text "content"
     t.string "answer"
     t.boolean "published"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "teacher_id"
   end
 
   create_table "users", force: :cascade do |t|

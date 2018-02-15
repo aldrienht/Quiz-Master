@@ -1,0 +1,32 @@
+<div class="page-header">
+  <h1>Examinations</h1>
+  <hr class="colorgraph">
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Teacher</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @teachers.each do |teacher| %>
+      <tr>
+        <td class="text-capitalize"><%= teacher.fullname%></td>
+        <td>
+          <% if get_student_remaining_exam(teacher).count <= 0 %>
+          <span class="glyphicon glyphicon-ok"></span> <strong>Finished</strong>
+          <% else %>
+            <%= link_to 'Take Exam', student_take_exam_path(teacher.id) %>
+          <% end %>
+        </td>
+        <td style="width: 30%"><%= link_to 'View Previous Exam Result', student_exam_results_path(teacher.id) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
