@@ -24,7 +24,13 @@
             <%= link_to 'Take Exam', student_take_exam_path(teacher.id) %>
           <% end %>
         </td>
-        <td style="width: 30%"><%= link_to 'View Previous Exam Result', student_exam_results_path(teacher.id) %></td>
+        <td style="width: 30%">
+          <% if current_user.exam_results.by_teacher(teacher.id).count >0 %>
+            <%= link_to 'View Previous Exam Result', student_exam_results_path(teacher.id) %>
+          <% else %>
+            No Previous Exam
+          <% end %>
+        </td>
       </tr>
       <% end %>
     </tbody>

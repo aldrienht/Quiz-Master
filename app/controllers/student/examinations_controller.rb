@@ -20,14 +20,17 @@ class Student::ExaminationsController < ApplicationController
   def submit_exam
     begin
       params[:questions].each do |key, val|
-        correct_answer = Question.find(key.to_i).answer
+        student_answer = val.try(:strip)
+        question_id = key.to_i
+
+        correct_answer = Question.find(question_id).answer
         ExamResult.create!(
           student_id: session[:user_id],
           teacher_id: params[:teacher],
-          question_id: key.to_i,
+          question_id: question_id,
           question_answer: correct_answer,
-          student_answer: val,
-          is_correct: check_answer(correct_answer, val)
+          student_answer: student_answer,
+          is_correct: check_answer(correct_answer, student_answer)
         )
       end
 

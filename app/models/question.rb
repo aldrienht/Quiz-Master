@@ -5,4 +5,10 @@ class Question < ApplicationRecord
 
   default_scope { order(created_at: :desc) }
   scope :published, -> { where(published: true) }
+
+  before_save :trim_answer
+
+  def trim_answer
+    self.answer = self.answer.strip unless self.answer.nil?
+  end
 end

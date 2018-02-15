@@ -1,18 +1,20 @@
+require 'humanize'
 module ApplicationHelper
-  require 'humanize'
-
   def check_answer(teacher_answer, student_answer)
+    # p "#{checker(teacher_answer)} == #{checker(student_answer)}"
     checker(teacher_answer) == checker(student_answer)
   end
 
   def checker(param)
+    return nil if param.nil? || param.blank?
+
     if !!(param =~ /\A[-+]?[0-9]+\z/) || param.is_a?(Integer)
       # Check if teacher answer is string integer (e.g. '12'), since data type column is string
       # Convert string to integer and finally to human readable for comparison
       param = param.to_i.humanize
     else
       # Convert all to small letters and remove spaces for better comparison
-      param = param.try(:downcase).try(:strip)
+      param = param.try(:downcase)
     end
 
     return param

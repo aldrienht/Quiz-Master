@@ -8,10 +8,6 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(helper.check_answer('BIG', 'big')).to eq(true)
     end
 
-    it 'with spaces should be ok' do
-      expect(helper.check_answer('answer', '   answer   ')).to eq(true)
-    end
-
     it 'number answer by student and words number by teacher should be ok' do
       expect(helper.check_answer('five', '5')).to eq(true)
     end
