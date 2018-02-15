@@ -7,13 +7,13 @@ class Admin::UsersController < ApplicationController
   # GET /admin/users
   # GET /admin/users.json
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /admin/users/1
   # GET /admin/users/1.json
-  def show
-  end
+  # def show
+  # end
 
   # GET /admin/users/new
   def new

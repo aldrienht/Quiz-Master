@@ -1,11 +1,9 @@
 class Student::ExaminationsController < ApplicationController
-  before_action :require_login
+  before_action :require_login, :authorize_student
   layout 'dashboard'
   include ApplicationHelper
 
   def index
-    # https://github.com/CanCanCommunity/cancancan/wiki/Non-RESTful-Controllers
-    authorize! :student, :examinations
     @teachers = User.includes(:questions).all_teachers
   end
 
@@ -14,7 +12,7 @@ class Student::ExaminationsController < ApplicationController
     if @teacher
       @examinations = get_student_remaining_exam(@teacher)
       if @examinations.count <= 0
-        redirect_to student_examinations_path, alert: 'You already finished the exam.' and return
+        redirect_to student_examinations_path, alert: 'You already finished the exam.'
       end
     end
   end
@@ -41,6 +39,12 @@ class Student::ExaminationsController < ApplicationController
 
   def exam_results
     @teacher = User.find(params[:teacher_id])
-    @exam_results = current_user.exam_results.by_teacher(params[:teacher_id])
+    @exam_results = current_user.exam_results.by_teacher(params[:teacher_id]).paginate(page: params[:page], per_page: 5)
+  end
+
+private
+  def authorize_student
+    # https://github.com/CanCanCommunity/cancancan/wiki/Non-RESTful-Controllers
+    authorize! :student, :examinations
   end
 end

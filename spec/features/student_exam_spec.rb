@@ -4,8 +4,8 @@ RSpec.feature "Student Take Exam", :type => :feature do
   before do
     @teacher = create(:teacher)
     @student = create(:student)
-    create(:question, {teacher_id: @teacher.id})
-    create(:another_question, {teacher_id: @teacher.id})
+    @question1 = create(:question, {teacher_id: @teacher.id})
+    @question2 = create(:another_question, {teacher_id: @teacher.id})
     sign_in(@student)
   end
 
@@ -15,8 +15,8 @@ RSpec.feature "Student Take Exam", :type => :feature do
     expect(page).to have_content(@teacher.fullname)
 
     click_link 'Take Exam'
-    fill_in 'questions_1', with: '5'
-    fill_in 'questions_2', with: 'five'
+    fill_in "questions_#{@question1.id}", with: '5'
+    fill_in "questions_#{@question2.id}", with: 'five'
     click_button 'Finish and Submit'
 
     expect(page).to have_content('Examination Result')

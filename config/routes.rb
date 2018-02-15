@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   namespace :admin do
-    resources :users
+    resources :users, except: [:show]
   end
 
   namespace :teacher do
-    resources :questions
+    resources :questions, except: [:show]
 
     get 'student_exam_results/:student_id', to: 'students#exam_results', as: 'student_exam_results'
     resources :students, only: [:index]

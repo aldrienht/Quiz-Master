@@ -4,7 +4,7 @@
       <tr>
         <th>#</th>
         <th>Questions :</th>
-        <th><%= params[:controller].split('/')[0] == 'student' ? 'Your' : 'His/Her' %> Answer :</th>
+        <th>Your Answer :</th>
         <th></th>
       </tr>
     </thead>
@@ -14,8 +14,8 @@
       <tr>
         <td><%= index += 1 %></td>
         <td style="width: 70%;"><%= raw(result.question.try(:content)) %></td>
-        <td style="width: 20%;"><%= result.student_answer %></td>
-        <td style="width: 10%;">
+        <td style="width: 25%;"><%= result.student_answer %></td>
+        <td style="width: 5%;">
           <% if result.is_correct %>
             <span class="glyphicon glyphicon-ok green"></span>
           <% else %>
@@ -26,4 +26,8 @@
       <% end %>
     </tbody>
     </table>
+</div>
+
+<div class="pull-right">
+  <%= will_paginate @exam_results, renderer: BootstrapPagination::Rails %>
 </div>

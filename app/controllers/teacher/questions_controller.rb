@@ -7,13 +7,13 @@ class Teacher::QuestionsController < ApplicationController
   # GET /teacher/questions
   # GET /teacher/questions.json
   def index
-    @questions = current_user.questions
+    @questions = current_user.questions.paginate(page: params[:page], per_page: 5)
   end
 
   # GET /teacher/questions/1
   # GET /teacher/questions/1.json
-  def show
-  end
+  # def show
+  # end
 
   # GET /teacher/questions/new
   def new

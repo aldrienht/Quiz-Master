@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
   it { should belong_to(:user) }
+  it { should have_one(:exam_result) }
 
   it 'should validate presence of required fields' do
     question = Question.new

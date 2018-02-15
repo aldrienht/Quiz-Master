@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'admin/users_controller'
 
 RSpec.describe Admin::UsersController, type: :controller do
   let(:valid_attributes) { attributes_for(:student) }

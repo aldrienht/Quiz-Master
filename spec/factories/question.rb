@@ -11,4 +11,11 @@ FactoryBot.define do
     answer 'five'
     published true
   end
+
+  factory :invalid_question, class: Question do
+    content ''
+    answer ''
+    published ''
+    teacher_id ''
+  end
 end

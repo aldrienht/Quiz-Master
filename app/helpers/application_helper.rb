@@ -12,7 +12,7 @@ module ApplicationHelper
       param = param.to_i.humanize
     else
       # Convert all to small letters and remove spaces for better comparison
-      param = param.try(:downcase).strip
+      param = param.try(:downcase).try(:strip)
     end
 
     return param
