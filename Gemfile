@@ -43,7 +43,7 @@ gem 'record_tag_helper', '~> 1.0'
 gem 'humanize'
 
 gem 'ckeditor', github: 'galetahub/ckeditor'
-gem 'paperclip', '~> 4.3', '>= 4.3.6'
+gem 'paperclip', '~> 5.2.1'
 gem 'will_paginate-bootstrap'
 # DEPRECATION: The cocaine gem is deprecated. Please upgrade to terrapin. See https://github.com/thoughtbot/terrapin/ for further instructions.
 # gem 'terrapin'
