@@ -1,5 +1,5 @@
 class CreateCkeditorAssets < ActiveRecord::Migration[5.1]
-  def self.up
+  def change
     create_table :ckeditor_assets do |t|
       t.string  :data_file_name, null: false
       t.string  :data_content_type
@@ -15,9 +15,5 @@ class CreateCkeditorAssets < ActiveRecord::Migration[5.1]
     end
 
     add_index :ckeditor_assets, :type
-  end
-
-  def self.down
-    drop_table :ckeditor_assets
   end
 end

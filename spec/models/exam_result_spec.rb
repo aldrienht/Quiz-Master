@@ -25,4 +25,36 @@ RSpec.describe ExamResult, type: :model do
 
     expect(ExamResult.wrong).to include(wrong)
   end
+
+  describe 'compare teacher and student answer' do
+    # matching_answers(teacher_answer, student_answer)
+
+    it 'small and big letter should be ok' do
+      expect(ExamResult.matching_answers('BIG', 'big')).to eq(true)
+    end
+
+    it 'number answer by student and words number by teacher should be ok' do
+      expect(ExamResult.matching_answers('five', '5')).to eq(true)
+    end
+
+    it 'number answer by teacher and number words by student should be ok' do
+      expect(ExamResult.matching_answers('5', 'five')).to eq(true)
+    end
+
+    it 'integer number answer by teacher and number words by student should be ok' do
+      expect(ExamResult.matching_answers(5, 'five')).to eq(true)
+    end
+
+    it 'number answer by teacher and integer number by student should be ok' do
+      expect(ExamResult.matching_answers('5', 5)).to eq(true)
+    end
+
+    it 'not equal string should not be correct' do
+      expect(ExamResult.matching_answers('BIG', 'small')).to eq(false)
+    end
+
+    it 'not equal integer should not be correct' do
+      expect(ExamResult.matching_answers('5', 3)).to eq(false)
+    end
+  end
 end

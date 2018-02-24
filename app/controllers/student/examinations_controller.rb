@@ -1,7 +1,6 @@
 class Student::ExaminationsController < ApplicationController
   before_action :require_login, :authorize_student
   layout 'dashboard'
-  include ApplicationHelper
 
   def index
     @teachers = User.includes(:questions).all_teachers
@@ -10,7 +9,7 @@ class Student::ExaminationsController < ApplicationController
   def take_exam
     @teacher = User.find(params[:teacher_id])
     if @teacher
-      @examinations = get_student_remaining_exam(@teacher)
+      @examinations = @teacher.get_student_remaining_exam_by_teacher(current_user)
       if @examinations.count <= 0
         redirect_to student_examinations_path, alert: 'You already finished the exam.'
       end
@@ -24,14 +23,14 @@ class Student::ExaminationsController < ApplicationController
         question_id = key.to_i
 
         correct_answer = Question.find(question_id).answer
-        ExamResult.create!(
-          student_id: session[:user_id],
-          teacher_id: params[:teacher],
-          question_id: question_id,
-          question_answer: correct_answer,
-          student_answer: student_answer,
-          is_correct: check_answer(correct_answer, student_answer)
-        )
+        res = ExamResult.new
+        res.student_id = current_user.id
+        res.teacher_id = params[:teacher]
+        res.question_id = question_id
+        res.question_answer = correct_answer
+        res.student_answer = student_answer
+        res.is_correct = ExamResult.matching_answers(correct_answer, student_answer)
+        res.save!
       end
 
       redirect_to student_exam_results_path(params[:teacher])

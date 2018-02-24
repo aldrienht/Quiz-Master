@@ -18,7 +18,7 @@
       <tr>
         <td class="text-capitalize"><%= teacher.fullname%></td>
         <td>
-          <% if get_student_remaining_exam(teacher).count <= 0 %>
+          <% if teacher.get_student_remaining_exam_by_teacher(current_user).count <= 0 %>
           <span class="glyphicon glyphicon-ok"></span> <strong>Finished</strong>
           <% else %>
             <%= link_to 'Take Exam', student_take_exam_path(teacher.id) %>

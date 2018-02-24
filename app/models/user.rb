@@ -25,4 +25,15 @@ class User < ApplicationRecord
   def is_teacher?
     self.role == 'teacher'
   end
+
+  def get_student_remaining_exam_by_teacher(student)
+    # Get all finished_questions by student
+    finished_questions = student.exam_results.pluck(:question_id)
+    # Get all teacher's published questions by ID
+    all_teacher_questions = self.questions.published.pluck(:id)
+    # Remove finished questions and return unfinish ones
+    unfinished_question_ids = all_teacher_questions.reject{|x| finished_questions.include?(x) }
+    # Get all questions which has not been finished by student
+    return unfinished_questions = Question.find(unfinished_question_ids)
+  end
 end

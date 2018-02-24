@@ -1,5 +1,5 @@
 class CreateExamResults < ActiveRecord::Migration[5.1]
-  def up
+  def change
     create_table :exam_results do |t|
       t.integer :student_id
       t.integer :teacher_id
@@ -10,9 +10,5 @@ class CreateExamResults < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-  end
-
-  def down
-    drop_table :exam_results
   end
 end

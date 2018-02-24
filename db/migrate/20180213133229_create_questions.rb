@@ -1,5 +1,5 @@
 class CreateQuestions < ActiveRecord::Migration[5.1]
-  def up
+  def change
     create_table :questions do |t|
       t.text :content
       t.string :answer
@@ -7,9 +7,5 @@ class CreateQuestions < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-  end
-
-  def down
-    drop_table :question
   end
 end
